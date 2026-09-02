@@ -1,0 +1,12 @@
+[project]
+name = "policypilot-rag"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "chromadb>=1.5.9",
+    "langchain>=1.3.18",
+    "langchain-ollama>=1.1.0",
+    "langgraph>=1.2.11",
+]
