@@ -11,3 +11,6 @@ wheels/
 
 #SECRETS
 .env
+
+#chromadb
+./chroma_store
