@@ -14,6 +14,6 @@ class Settings:
     data_dir: Path = Path(os.getenv("DATA_DIR", "./data"))
     retrieval_k: int = int(os.getenv("RETRIEVAL_K", "5"))
     collections = {"hr": "hr_policy", "engineering": "engineering", "onboarding": "onboarding", "product":"productkb", "security":"security"}
-    source_files = {"hr": "company_hr_policy.txt", "engineering": "engineering_standards.txt", "onboarding": "onboardng_guide.txt", "product":"product_knowledge_base.txt", "security":"security_policy.txt"}
+    source_files = {"hr": "company_hr_policy.txt", "engineering": "engineering_standards.txt", "onboarding": "onboarding_guide.txt", "product":"product_knowledge_base.txt", "security":"security_policy.txt"}
 
 settings = Settings()

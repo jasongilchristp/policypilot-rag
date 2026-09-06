@@ -9,8 +9,11 @@ from .models import get_embeddings
 
 def chunk_by_paragraph(file_path: Path) -> list[Document]:
     text = file_path.read_text(encoding="utf-8")
-    return [Document(page_content=p.strip(), metadata={"source": str(file_path)})
-            for p in text.split("\n\n") if len(p.split()) >= 50 and not p.strip().startswith("===")]
+    return [
+        Document(page_content=p.strip(), metadata={"source": str(file_path)})
+        for p in text.split("\n\n")
+        if len(p.strip()) >= 50 and not p.strip().startswith("===")
+    ]
 
 def build_collection(file_path: Path, collection_name: str) -> int:
     documents = chunk_by_paragraph(file_path)

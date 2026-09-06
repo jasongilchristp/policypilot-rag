@@ -3,7 +3,8 @@ from .graph import build_app
 from .ingestion import ingest_all
 
 def ask(question):
-    result = build_app.invoke({"question": question})
+    app = build_app()
+    result = app.invoke({"question": question})
     print(f"Intent: {result.get('intent')}\nSource: {result.get('source')}\n\n Answer: {result.get('answer')}")
 
 def main():
