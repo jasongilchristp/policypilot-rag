@@ -1,0 +1,25 @@
+{"question": "How many days of paid annual leave do full-time employees get per year?", "gold_intent": "hr", "gold_file": "company_hr_policy.txt", "gold_keywords": ["24 days", "annual leave"], "should_answer": true}
+{"question": "What is the paternity leave duration at NovaTech?", "gold_intent": "hr", "gold_file": "company_hr_policy.txt", "gold_keywords": ["15 days", "paternity"], "should_answer": true}
+{"question": "Can casual leave be combined with other types of leave?", "gold_intent": "hr", "gold_file": "company_hr_policy.txt", "gold_keywords": ["cannot be combined"], "should_answer": true}
+{"question": "How many days per week can employees work from home and what are preferred days?", "gold_intent": "hr", "gold_file": "company_hr_policy.txt", "gold_keywords": ["2 days per week", "Wednesday and Friday"], "should_answer": true}
+{"question": "What is the branch naming convention for new features?", "gold_intent": "engineering", "gold_file": "engineering_standards.txt", "gold_keywords": ["feature/JIRA-123"], "should_answer": true}
+{"question": "How many approvals are required for a pull request and can author approve own PR?", "gold_intent": "engineering", "gold_file": "engineering_standards.txt", "gold_keywords": ["at least 1 approval", "cannot approve their own"], "should_answer": true}
+{"question": "What is the maximum line length for Python code per standards?", "gold_intent": "engineering", "gold_file": "engineering_standards.txt", "gold_keywords": ["120 characters"], "should_answer": true}
+{"question": "What is the maximum allowed query time for API endpoints?", "gold_intent": "engineering", "gold_file": "engineering_standards.txt", "gold_keywords": ["500ms"], "should_answer": true}
+{"question": "What time should new employees report on Day 1 and what ID to bring?", "gold_intent": "onboarding", "gold_file": "onboarding_guide.txt", "gold_keywords": ["9:30 AM", "Aadhaar or PAN"], "should_answer": true}
+{"question": "What equipment is given to engineering roles on Day 1?", "gold_intent": "onboarding", "gold_file": "onboarding_guide.txt", "gold_keywords": ["MacBook Pro", "wireless mouse", "laptop stand"], "should_answer": true}
+{"question": "Is WFH available during probation period?", "gold_intent": "onboarding", "gold_file": "onboarding_guide.txt", "gold_keywords": ["Not available during probation", "unless explicitly approved"], "should_answer": true}
+{"question": "What are first 30 days expectations for new joiners?", "gold_intent": "onboarding", "gold_file": "onboarding_guide.txt", "gold_keywords": ["3-5 small tickets", "Understand the team's product"], "should_answer": true}
+{"question": "What is the pricing for Starter plan billed annually?", "gold_intent": "product", "gold_file": "product_knowledge_base.txt", "gold_keywords": ["Rs 299/user/month", "Starter"], "should_answer": true}
+{"question": "Where is CloudDesk Pro data stored for Indian customers?", "gold_intent": "product", "gold_file": "product_knowledge_base.txt", "gold_keywords": ["Mumbai", "ap-south-1"], "should_answer": true}
+{"question": "How long can deleted projects be restored and where?", "gold_intent": "product", "gold_file": "product_knowledge_base.txt", "gold_keywords": ["30 days", "Trash"], "should_answer": true}
+{"question": "What happens when a payment fails for CloudDesk Pro?", "gold_intent": "product", "gold_file": "product_knowledge_base.txt", "gold_keywords": ["retries 3 times", "7 days", "Grace Period", "14 days"], "should_answer": true}
+{"question": "What are the password requirements for minimum length?", "gold_intent": "security", "gold_file": "security_policy.txt", "gold_keywords": ["12 characters"], "should_answer": true}
+{"question": "Is SMS-based 2FA accepted at NovaTech?", "gold_intent": "security", "gold_file": "security_policy.txt", "gold_keywords": ["not accepted", "SIM-swap"], "should_answer": true}
+{"question": "Which WiFi network should employees use in office?", "gold_intent": "security", "gold_file": "security_policy.txt", "gold_keywords": ["NovaTech-Secure"], "should_answer": true}
+{"question": "Can we paste customer data into ChatGPT or Claude?", "gold_intent": "security", "gold_file": "security_policy.txt", "gold_keywords": ["NEVER paste", "customer data"], "should_answer": true}
+{"question": "What is the capital of France?", "gold_intent": "general", "gold_file": null, "gold_keywords": [], "should_answer": false}
+{"question": "Write a poem about monsoon.", "gold_intent": "general", "gold_file": null, "gold_keywords": [], "should_answer": false}
+{"question": "What is the current stock price of TCS?", "gold_intent": "general", "gold_file": null, "gold_keywords": [], "should_answer": false}
+{"question": "Who won IPL 2024?", "gold_intent": "general", "gold_file": null, "gold_keywords": [], "should_answer": false}
+{"question": "Explain quantum computing in simple terms.", "gold_intent": "general", "gold_file": null, "gold_keywords": [], "should_answer": false}
