@@ -1,0 +1,32 @@
+Loaded 25 questions from eval\eval_set.jsonl
+hr           -> hr           | src hr_policy            | routing 1 source 1
+hr           -> hr           | src hr_policy            | routing 1 source 1
+hr           -> hr           | src hr_policy            | routing 1 source 1
+hr           -> hr           | src hr_policy            | routing 1 source 1
+engineering  -> engineering  | src engineering          | routing 1 source 1
+engineering  -> engineering  | src engineering          | routing 1 source 1
+engineering  -> engineering  | src engineering          | routing 1 source 1
+engineering  -> engineering  | src engineering          | routing 1 source 1
+onboarding   -> onboarding   | src onboarding           | routing 1 source 1
+onboarding   -> onboarding   | src onboarding           | routing 1 source 1
+onboarding   -> onboarding   | src onboarding           | routing 1 source 1
+onboarding   -> onboarding   | src onboarding           | routing 1 source 1
+product      -> product      | src productkb            | routing 1 source 1
+product      -> product      | src productkb            | routing 1 source 1
+product      -> product      | src productkb            | routing 1 source 1
+product      -> product      | src productkb            | routing 1 source 1
+security     -> security     | src security             | routing 1 source 1
+security     -> security     | src security             | routing 1 source 1
+security     -> product      | src productkb            | routing 0 source 0
+security     -> security     | src security             | routing 1 source 1
+general      -> general      | src general              | routing 1 source 1
+general      -> general      | src general              | routing 1 source 1
+general      -> general      | src general              | routing 1 source 1
+general      -> general      | src general              | routing 1 source 1
+general      -> general      | src general              | routing 1 source 1
+
+=== EVAL RESULTS ===
+Routing Accuracy: 96.00%
+Source Accuracy (right collection): 96.00%
+Keyword Recall: 90.00%
+Abstention: 92.00%

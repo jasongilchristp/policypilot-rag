@@ -4,14 +4,22 @@ from .models import get_llm
 from .prompts import ANSWER_SYSTEM, GENERAL_SYSTEM, INTENT_SYSTEM
 from .retrieval import retrieve_from_chroma, format_context
 
-VALID_INTENTS = {"hr", "engineering", "onboarding", "product", "security", "general"}
+VALID_INTENTS = ["hr", "engineering", "onboarding", "product", "security", "general"]
 
 def call_llm(system, user):
     return get_llm().invoke([SystemMessage(content=system), HumanMessage(content=user)]).content.strip()
 
 def classify_intent(state):
-    value = call_llm(INTENT_SYSTEM, f"Question: {state['question']}").lower()
-    return {"intent": value if value in VALID_INTENTS else "general"}
+    raw = call_llm(INTENT_SYSTEM, f"Question: {state['question']}").lower()
+    # handles "hr." or " hr " or "Answer: hr"
+    cleaned = raw.split()[0].strip(".,:()[]\"'") if raw else "general"
+    if cleaned not in VALID_INTENTS:
+        # search inside: "the answer is hr" -> finds hr
+        for intent in VALID_INTENTS:
+            if intent in raw:
+                return {"intent": intent}
+        return {"intent": "general"}
+    return {"intent": cleaned}
 
 def search_collection(state, intent):
     docs = retrieve_from_chroma(state["question"], settings.collections[state["intent"]])
