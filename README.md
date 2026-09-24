@@ -117,7 +117,7 @@ policypilot-rag/
 | Workflow | LangGraph | Stateful routing and orchestration |
 | LLM framework | LangChain | Model and document abstractions |
 | Generation | Ollama | Local chat-model inference |
-| Embeddings | `nomic-embed-text` via Ollama | Local semantic embeddings |
+| Embeddings | `granite-embedding:278m` via Ollama | Local semantic embeddings |
 | Vector database | Chroma | Persistent, domain-specific vector collections |
 | Configuration | `python-dotenv` | Environment-based runtime settings |
 | Tests | pytest | Routing behavior + eval file checks (9 passed) |
