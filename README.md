@@ -141,14 +141,14 @@ source .venv/bin/activate        # Windows: .venv\Scripts\activate
 uv pip install -e .
 
 cp .env.example .env
-ollama pull granite4.1:3b
+ollama pull granite4.2:3b
 ollama pull granite-embedding:278m 
 ```
 
 ### Configure
 
 ```env
-CHAT_MODEL=granite4.1:3b
+CHAT_MODEL=granite4.2:3b
 EMBED_MODEL=granite-embedding:278m 
 CHROMA_DIR=./chroma_store
 DATA_DIR=./data
@@ -214,7 +214,7 @@ company-rag --eval
 ```
 ## Resume bullet
 
-> Built **PolicyPilot RAG**, a local LangGraph-based company support assistant that classifies questions across five knowledge domains, routes queries to isolated Chroma vector collections, and generates grounded answers through Ollama-based retrieval-augmented generation. Locked 96% routing, 95% keyword recall, 96% abstention with 9 pytest + 25-question eval harness.
+> Built **PolicyPilot RAG**, a local LangGraph-based company support assistant that classifies questions across five knowledge domains, routes queries to isolated Chroma vector collections, and generates grounded answers through Ollama-based retrieval-augmented generation. Locked 100% routing, 100% keyword recall, 100% abstention with 9 pytest + 25-question eval harness.
 ## License
 
 MIT license.

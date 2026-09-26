@@ -6,7 +6,7 @@ def retrieve_from_chroma(query: str, collection_name: str, k: int | None = None)
     store = Chroma(
         collection_name=collection_name,
         embedding_function=get_embeddings(),
-        persist_directory=settings.chroma_dir,
+        persist_directory=str(settings.chroma_dir),
     )
     docs = store.similarity_search(query, k=k or settings.retrieval_k)
     if not docs:

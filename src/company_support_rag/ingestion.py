@@ -18,7 +18,7 @@ def chunk_by_paragraph(file_path: Path) -> list[Document]:
 def build_collection(file_path: Path, collection_name: str) -> int:
     documents = chunk_by_paragraph(file_path)
     if not documents: raise ValueError(f"No usable paragraphs in {file_path}")
-    Chroma.from_documents(documents=documents, embedding=get_embeddings(), collection_name=collection_name, persist_directory=settings.chroma_dir)
+    Chroma.from_documents(documents=documents, embedding=get_embeddings(), collection_name=collection_name, persist_directory=str(settings.chroma_dir))
     return len(documents)
 
 def ingest_all() -> dict[str, int]:

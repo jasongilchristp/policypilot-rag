@@ -8,8 +8,8 @@ load_dotenv()
 
 @dataclass(frozen=True)
 class Settings:
-    chat_model: str = os.getenv("CHAT_MODEL", "granite4.1:3b")
-    embed_model: str = os.getenv("EMBED_MODEL", "granite-embedding:278m")
+    chat_model: str = os.getenv("CHAT_MODEL", "granite4.2:3b")
+    embed_model: str = os.getenv("EMBED_MODEL", "granite-embedding:30m")
     chroma_dir: Path = Path(os.getenv("CHROMA_DIR", "./chroma_store"))
     data_dir: Path = Path(os.getenv("DATA_DIR", "./data"))
     retrieval_k: int = int(os.getenv("RETRIEVAL_K", "5"))
