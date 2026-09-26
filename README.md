@@ -214,7 +214,7 @@ company-rag --eval
 ```
 ## Resume bullet
 
-> Built **PolicyPilot RAG**, a local LangGraph-based company support assistant that classifies questions across five knowledge domains, routes queries to isolated Chroma vector collections, and generates grounded answers through Ollama-based retrieval-augmented generation. Locked 100% routing, 100% keyword recall, 100% abstention with 9 pytest + 25-question eval harness.
+> Built **PolicyPilot RAG**, a local LangGraph-based company support assistant that classifies questions across five knowledge domains, routes queries to isolated Chroma vector collections, and generates grounded answers through Ollama-based retrieval-augmented generation. Locked 96% routing, 95% keyword recall, 96% abstention with 9 pytest + 25-question eval harness.
 ## License
 
 MIT license.
