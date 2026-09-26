@@ -117,7 +117,7 @@ policypilot-rag/
 | Workflow | LangGraph | Stateful routing and orchestration |
 | LLM framework | LangChain | Model and document abstractions |
 | Generation | Ollama | Local chat-model inference |
-| Embeddings | `granite-embedding:278m` via Ollama | Local semantic embeddings |
+| Embeddings | `granite-embedding:30m` via Ollama | Local semantic embeddings |
 | Vector database | Chroma | Persistent, domain-specific vector collections |
 | Configuration | `python-dotenv` | Environment-based runtime settings |
 | Tests | pytest | Routing behavior + eval file checks (9 passed) |
@@ -142,14 +142,14 @@ uv pip install -e .
 
 cp .env.example .env
 ollama pull granite4.2:3b
-ollama pull granite-embedding:278m 
+ollama pull granite-embedding:30m 
 ```
 
 ### Configure
 
 ```env
 CHAT_MODEL=granite4.2:3b
-EMBED_MODEL=granite-embedding:278m 
+EMBED_MODEL=granite-embedding:30m 
 CHROMA_DIR=./chroma_store
 DATA_DIR=./data
 RETRIEVAL_K=5
