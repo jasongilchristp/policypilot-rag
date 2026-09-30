@@ -83,7 +83,7 @@ SECTION 4: KEY POLICIES TO KNOW IMMEDIATELY
 ============================================================
 
 Working Hours:
-Flexible start between 8 AM and 10 AM. Core hours (everyone online): 10 AM to 4 PM. Minimum 8.5 hours per day.
+Flexible start between 8:00 AM and 10:00 AM. Core hours (everyone online): 10:00 AM to 6:00 PM IST. Minimum 8.5 hours per day.
 
 Leave:
 Don't take leave in the first month (unless emergency). After that, apply via the HR portal at least 2 days in advance for planned leave.
@@ -119,3 +119,142 @@ Days 61-90:
 - Mentor the next new joiner (if applicable)
 - Contribute to technical documentation
 - 90-day probation review (leads to confirmation if successful)
+
+============================================================
+SECTION 6: FIRST 30 DAYS CHECKLIST
+============================================================
+
+Week 1 — Administrative:
+- Collect your government photo ID and degree certificates originals for verification
+- Submit your bank account details and PAN card in the HR portal
+- Complete the group health insurance enrolment form with your dependents
+- Read and digitally sign the employee handbook acknowledgement
+- Enrol in the retirement savings (provident fund) declaration
+- Fill the emergency contact information with facilities
+
+Week 2 — Access and Compliance:
+- Complete mandatory security awareness training (1 hour)
+- Complete the code of conduct and workplace ethics module
+- Set up multi-factor authentication on every listed account
+- Read and accept the information security policy
+- Enrol in the Employee Assistance Program if you wish to use it
+
+Week 3 — Team and Process:
+- Attend a sprint planning session as an observer
+- Complete the product walkthrough quiz in the internal learning platform
+- Meet your cross-functional counterparts in design and support
+- Attend at least one customer call as an observer
+
+Week 4 — Contribution:
+- Ship your first production change end-to-end
+- Request your first code review as a reviewer
+- Attend the 30-day check-in with your manager
+- Set your quarterly OKRs with your manager
+
+============================================================
+SECTION 7: OFFICE ACCESS AND BADGE
+============================================================
+
+Badge and Gate Access:
+Your office badge is issued by facilities on your first working day and gives access to your floor, the pantry, and common meeting rooms. Badge access is logged at the main gate. Facilities verifies your identity against a government photo ID before issuing the badge.
+
+Restricted Areas:
+Server rooms, the finance floor, and the roof terrace are restricted areas requiring a separate access request. Access is granted on a need-to-know basis with approval from the area owner. Restricted access is revoked automatically when you change teams.
+
+Meeting Room Access:
+Booking a meeting room requires a corporate Google Calendar account. Rooms with more than 6 seats must be booked at least 24 hours in advance. Video equipment in large rooms must be tested at the start of the meeting.
+
+Visitors:
+Register any visitor at reception before they arrive. Visitors are issued a temporary badge and must be escorted at all times in restricted areas. Visitors are not permitted on the roof terrace or in server rooms.
+
+Working After Hours:
+The office is accessible 24 hours a week for employees with a badge, but the floor must be vacated by 10:00 PM on weekdays. Building security after 10:00 PM is provided by a contracted guard, not by NovaTech staff.
+
+============================================================
+SECTION 8: LOCAL DEVELOPMENT SETUP (ENGINEERING)
+============================================================
+
+Repository Access:
+GitHub organisation access is granted on Day 1 for engineering roles. Request access to specific repositories through the platform team using the standard access form. Write access to shared libraries is granted after the first month.
+
+Local Environment:
+Install the team's standard development tooling from the shared bootstrap repository. Python projects use uv with a lockfile committed. Node projects use the version pinned in .nvmrc. Never commit a local .env file — use the team secrets manager for local secrets.
+
+Running Services Locally:
+All services run in containers using Docker Compose. The full local stack takes roughly 8 GB of RAM. If your machine cannot run the full stack, use the shared development environment instead of partial local setups.
+
+First Deploy Path:
+Your first deployment follows this path only: local, then pull request, then development environment. Do not deploy to staging during your first month unless accompanied by your buddy. Staging access is enabled after the 30-day check-in.
+
+Access Escalation Timeline:
+Development environment access is automatic. Staging access after 1 month. Production read access after 3 months. Production write access requires a change request and is granted only after the probation period.
+
+============================================================
+SECTION 9: RELOCATION FOR NEW JOINERS
+============================================================
+
+Relocation Allowance:
+New joiners relocating for the role are reimbursed up to Rs 50,000 towards travel and shifting, on production of receipts, within 30 days of joining. This is separate from the relocation support available to existing employees after 2 years of service.
+
+Temporary Accommodation:
+Temporary accommodation for up to 15 days is provided for new joiners who relocate. Booking is arranged through the HR travel desk. Requests must be raised at least 10 days before the joining date.
+
+Relocation From Another Country:
+Employees relocating from outside India are eligible for one-way economy airfare for themselves and dependants, plus a temporary accommodation allowance of up to 30 days. Immigration and visa support is provided by the HR mobility team.
+
+============================================================
+SECTION 10: TRAINING AND COMPLIANCE REQUIREMENTS
+============================================================
+
+Mandatory Training in Month 1:
+- Security awareness training (1 hour, Day 4)
+- Code of conduct and workplace ethics (30 minutes, by end of week 2)
+- Information security and data handling policy (20 minutes, by end of week 2)
+- Prevention of sexual harassment awareness (45 minutes, by end of month 1)
+
+Compliance Deadlines:
+All mandatory compliance training must be completed within 30 days of joining. Incomplete training is escalated to your manager and appears in your first 30-day check-in. Two or more incomplete mandatory modules block confirmation at the end of probation.
+
+Refresher Training:
+Security awareness refresher training is mandatory every 12 months for all employees. Phishing simulation exercises run quarterly and produce a non-punitive score per team.
+
+Certification Paths:
+New joiners in customer-facing roles must complete the product certification path within 60 days. New joiners in engineering roles must complete the secure development module within 45 days.
+
+============================================================
+SECTION 11: PROBATION AND FIRST 90 DAYS REVIEW PROCESS
+============================================================
+
+Probation Length:
+All new employees are in probation for 6 months from the date of joining. This includes the onboarding period described in the earlier sections of this guide. Probation and onboarding are related but distinct: onboarding is a learning plan, probation is an employment status.
+
+Reviews During Probation:
+A formal review is held at 3 months and again at 6 months. The 3-month review is a checkpoint. Unsatisfactory performance at 3 months leads to a Performance Improvement Plan with specific goals for the remaining 3 months.
+
+Onboarding Versus Probation:
+Employees may WFH during probation only in exceptional circumstances with manager and HR approval, whereas day-to-day work happens in the office. Full confirmation occurs at the end of the 6-month probation period, not at the 90-day mark.
+
+Confirmation:
+Successful completion of probation results in a confirmation letter, after which the employee becomes eligible for all benefits including regular WFH, group health insurance, and the annual performance bonus.
+
+============================================================
+SECTION 12: WHO TO CONTACT
+============================================================
+
+HR Team:
+hr@novatech.in handles offers, letters, leave policy, payroll questions, benefits, and any HR process. Response time is within 2 working days. For urgent same-day matters, contact the HR coordinator directly.
+
+IT Helpdesk:
+helpdesk@novatech.in or the #it-help Slack channel handles laptops, accounts, access requests, and software installation. Access requests are fulfilled within 1 working day; new laptop requests within 3 working days.
+
+Facilities:
+facilities@novatech.in handles office access, badge issues, seating, pantry, and visitor management. Facilities response time is within 4 working hours for access issues.
+
+Security Team:
+security@novatech.in handles security questions, access reviews, and incident reporting. For a suspected security incident follow the incident reporting process in the security policy instead of emailing a general question.
+
+Your Manager:
+Your manager is the first point of contact for anything about your role, priorities, deadlines, team norms, and work allocation. If a question is blocking your work, escalate to your manager before it costs more than half a day.
+
+Your Buddy:
+Your buddy is the right person for informal questions — how things actually work, where to find things, and who owns what. Your buddy is not the person to escalate formal requests to.

@@ -171,3 +171,130 @@ Exports for workspaces with more than 10,000 tasks or 50 GB of files can take up
 
 "How do I cancel my subscription?":
 Go to Settings → Billing → Subscription → Cancel. You will be asked to confirm and provide a reason. Your account remains active until the end of the current billing period. You can reactivate anytime before the period ends.
+
+============================================================
+SECTION 8: INTEGRATIONS CATALOG
+============================================================
+
+Available Integrations:
+CloudDesk Pro offers native integrations with Slack, Google Workspace, GitHub, GitLab, Jira, Salesforce, HubSpot, Figma, Dropbox, OneDrive, and Zapier. Over 50 additional tools are available through the connector marketplace.
+
+Setup Time:
+Native integrations take under 5 minutes to connect with OAuth. Marketplace connectors typically take 5 to 15 minutes because they require an API key to be created and pasted. Connectors requiring a webhook URL need a publicly reachable HTTPS endpoint.
+
+Permissions Required by Integrations:
+Each integration requests the minimum scopes needed. The Slack integration requires read and write access to channels you select. The GitHub integration requires repository read access, and write access only if you enable issue creation. Scopes can be revoked at any time from the integrations page.
+
+Data Syncing Direction:
+Most integrations sync in both directions. Two integrations are one-way by design: Dropbox and OneDrive are import-only into Document Hub, and Figma is export-only. See the data and privacy section for what is stored in which region.
+
+Integration Outages:
+When a third-party integration is unavailable, CloudDesk Pro continues to function and queued changes are applied when the integration recovers. Sync backlog is visible on the integrations page. Backlogs older than 72 hours are raised automatically with the integration vendor.
+
+============================================================
+SECTION 9: LIMITS, QUOTAS AND RATE LIMITING
+============================================================
+
+Plan Limits:
+The Starter plan is capped at 20 users and 5 projects. The Business plan has no cap on users or projects but each user is limited to 100 GB of storage. File uploads are limited to 5 GB per file on all plans. A single task can hold at most 200 subtasks and 100 attachments.
+
+API Rate Limits:
+The Business plan allows 600 API requests per minute per workspace with a burst of 1,200. The Enterprise plan allows 3,000 requests per minute with a burst of 6,000. Rate limit headers (X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset) are returned on every API response.
+
+When You Hit a Rate Limit:
+A rate-limited request returns HTTP 429 with a Retry-After header. Clients must honour Retry-After and must not retry immediately. Sustained rate limiting triggers an email to the Workspace Admin. Repeated limit breaches across 3 consecutive days may result in a temporary API suspension until the integration is fixed.
+
+Search and Report Limits:
+Full-text search returns at most 500 results per query; use filters to narrow results. Report exports are limited to 250,000 rows. Dashboards are limited to 25 widgets, and a workspace is limited to 100 dashboards.
+
+============================================================
+SECTION 10: RELEASE NOTES AND CHANGELOG
+============================================================
+
+Release Cadence:
+CloudDesk Pro ships a release every 2 weeks on a Tuesday. Releases containing only bug fixes may ship on other days as patch releases. Emergency releases for security fixes can ship at any time with up to 4 hours notice.
+
+Release Notes:
+Release notes are published to docs.clouddesk.pro/updates within 2 hours of a release going live. Each note lists new features, improvements, bug fixes, and breaking changes. Breaking changes are announced at least 14 days in advance and separately emailed to Workspace Admins.
+
+Deprecation Policy:
+A feature marked deprecated in release notes remains available for at least 90 days. The replacement feature is named in the same note. When a deprecated feature is removed, affected Workspace Admins receive an email 30 days before removal.
+
+Versioning:
+The product follows semantic versioning internally. Customers do not pin versions — the web application always runs the latest release. API consumers can pin a behaviour via the version header and are notified 6 months before a breaking API change.
+
+Changelog API:
+The full machine-readable changelog is available at GET /api/v1/changelog and returns the last 180 days of releases. It requires an API key and is available on the Business plan and above.
+
+============================================================
+SECTION 11: STATUS, MAINTENANCE AND INCIDENTS
+============================================================
+
+Status Page:
+Current and historical system status is published at status.clouddesk.pro. Subscribers can opt in to email and SMS notifications for any component with an open incident. Subscribing to status notifications is recommended for Workspace Admins of Enterprise accounts.
+
+Maintenance Windows:
+Planned maintenance happens on Sundays between 02:00 and 05:00 IST. Maintenance windows are announced at least 72 hours in advance on the status page. During maintenance, the product is read-only; no data is lost and no downtime beyond the announced window is expected.
+
+Planned vs Unplanned:
+Planned maintenance is scheduled in advance and does not count as an incident. Unplanned downtime counts toward the uptime commitment. Customers on the Enterprise plan have a 99.9% monthly uptime commitment with service credits for breaches.
+
+Incident Communication:
+For any unplanned incident affecting all customers, a status update is posted within 15 minutes of detection. Updates are posted every 30 minutes until resolution. A post-incident summary is published for any incident with more than 15 minutes of customer impact.
+
+Component Status:
+The status page tracks separately: web application, API, file uploads, notifications, integrations, and billing. A degraded component means some functionality is slow or partially failing while the rest of the product remains usable.
+
+============================================================
+SECTION 12: MOBILE APPS
+============================================================
+
+Mobile Availability:
+CloudDesk Pro has native apps for iOS (version 7.2 or later) and Android (version 11 or later). The apps are free to download from the App Store and Google Play. A mobile app is included with every plan at no additional cost.
+
+Mobile Feature Parity:
+Mobile supports task viewing and updates, comments, notifications, time logging, and chat. It does not support report editing, workflow configuration, billing, user administration, or data export. Those remain web-only.
+
+Offline Mode:
+The iOS and Android apps cache your last 20 tasks per project and allow read and update access offline. Changes made offline are queued and synced when connectivity returns. Offline changes conflict-resolve in favour of the most recent edit and are reported in the sync log.
+
+Mobile Security:
+The apps support biometric login (Face ID, Touch ID, fingerprint). Push notifications never display the content of a confidential task — only the project name. Enterprise customers can remotely wipe cached data on managed devices.
+
+============================================================
+SECTION 13: ROADMAP AND FEATURE REQUESTS
+============================================================
+
+How We Prioritise:
+Feature requests are collected in the public roadmap at feedback.clouddesk.pro. Every request is voted on by customers and reviewed monthly by the product team. Priorities are driven by customer impact first, then revenue relevance, then strategic fit.
+
+Public Roadmap:
+The roadmap is organised into Under Consideration, Planned, In Progress, and Shipped. Items move to Planned only after a target quarter is assigned. Dates are not published until the quarter is confirmed, because we would rather be late and honest than on time and wrong.
+
+Feature Request Scope:
+A request must describe the problem rather than the solution. Requests for a specific implementation are usually declined in favour of a broader capability. Requests from multiple customers on the same plan are weighted higher.
+
+Communicating Delays:
+If a Planned item slips a quarter, the request is automatically updated with the reason and the new target. Anyone who voted is notified. Items that are indefinitely delayed are moved back to Under Consideration with an explanation.
+
+Customer Commitments:
+Features explicitly promised in a signed order form or an Enterprise contract override the roadmap and are tracked separately. Roadmap dates are never binding except in a signed contract.
+
+============================================================
+SECTION 14: CUSTOMER ONBOARDING AND MIGRATION
+============================================================
+
+Implementation Services:
+Business and Enterprise customers receive implementation assistance. A shared onboarding manager is assigned at contract signature and runs a kickoff call within 5 working days. The onboarding manager helps with data migration, workspace configuration, and admin training.
+
+Migration From Other Tools:
+We support import from Asana, Trello, Monday.com, and Jira via CSV or their APIs. A typical migration of 10,000 tasks takes 3 to 5 working days. Migration preserves task titles, descriptions, assignees, due dates, comments, and attachments.
+
+Admin Training:
+Live admin training is a 2-hour session covering user roles, workflow configuration, reporting, and integration setup. Admin certification, which includes a short assessment, is required for workspaces above 500 users.
+
+Adoption Milestones:
+The recommended adoption path is 25% weekly active users in week 1, 60% by week 4, and 80% by week 12. Workspaces below the week-12 target are offered a free health check. Adoption is the strongest predictor of renewal, which is why it is tracked per workspace.
+
+Trial to Paid Conversion:
+Trial workspaces are contacted at the 10-day and 13-day marks. Trials that have invited at least 5 users and created at least 20 tasks convert at roughly 4 times the rate of inactive trials. Trials that do not convert are downgraded to Starter automatically at day 14.

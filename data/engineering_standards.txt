@@ -119,3 +119,99 @@ Query Performance:
 - Avoid SELECT * — specify needed columns
 - Use EXPLAIN to check query plans for slow queries
 - Maximum query time: 500ms for API endpoints
+
+============================================================
+SECTION 6: CI/CD AND DEPLOYMENT
+============================================================
+
+Environments:
+We maintain four environments — local, development, staging, and production. Developers work in local, changes are integrated to development automatically, staging mirrors production for release verification, and production holds customer traffic.
+
+Continuous Integration:
+Every pull request triggers the CI pipeline, which runs linting, unit tests, integration tests, and security scans. The pipeline must complete in under 15 minutes. A red pipeline blocks merge entirely; there are no manual overrides.
+
+Continuous Delivery:
+Merges to main trigger an automatic deployment to the development environment. Deployments to staging are triggered manually by the merge approver after QA sign-off. Production deployments require a change request approved by the engineering manager.
+
+Release Cadence:
+We ship to production every day at 06:00 UTC. Changes merged before the cutoff are included in the same day's release. Emergency hotfixes may bypass the cutoff and are released within 4 hours of merge.
+
+Rollback:
+Every production deployment must have a documented rollback path. If a release causes error rates above 1% for 10 minutes, the on-call engineer must roll back first and investigate after. Rollback is always preferred over a forward fix during an incident.
+
+============================================================
+SECTION 7: SECURITY IN THE DEVELOPMENT LIFECYCLE
+============================================================
+
+Static Analysis:
+Every repository runs a static analysis tool (Semgrep for Python, ESLint security rules for TypeScript) on every pull request. Findings at Critical or High severity block merge. Medium findings require an acknowledgement comment; Low findings are informational.
+
+Secrets Management:
+API keys, database passwords, and tokens must never be committed to source control. All secrets live in the secrets manager (AWS Secrets Manager) and are injected at runtime. A committed secret must be rotated immediately, not just deleted from history.
+
+Dependency Scanning:
+Dependencies are scanned for known vulnerabilities on every build using Dependabot and Snyk. Critical CVEs must be patched within 7 days, High within 30 days. Dependencies with a GPL or AGPL licence require legal approval before being added.
+
+Authorisation in Code:
+Authorisation checks must be enforced on the server for every request; client-side checks are never sufficient. New API endpoints must define their permission scope in the route definition. Absence of an explicit permission means the endpoint is not complete.
+
+============================================================
+SECTION 8: MONITORING, LOGGING AND ON-CALL
+============================================================
+
+Observability Stack:
+All services emit structured logs, distributed traces, and RED metrics (Rate, Errors, Duration) to the central observability platform. A service without dashboards and alerts for its top 5 errors cannot be released to production.
+
+Logging Standards:
+Use structured JSON logs. Every log line must include the request ID, the service name, and the user ID where applicable. Never log passwords, tokens, full card numbers, or personally identifiable information. Log levels must follow the company standard: DEBUG in development, INFO and above in production.
+
+On-Call Rotation:
+Each service has an on-call rotation with a primary and a secondary engineer. The rotation runs Monday to Monday, with a handoff call on Fridays. On-call engineers must acknowledge a page within 5 minutes.
+
+Incident Severity:
+SEV1 means complete service unavailability for all customers and requires immediate response. SEV2 means a major feature is unavailable with no workaround. SEV3 means a degraded experience with a workaround available. Severity is declared by the incident commander, not by the reporting engineer.
+
+Post-Incident Reviews:
+Every SEV1 and SEV2 incident requires a blameless post-incident review within 5 working days. The review document must include a timeline, root cause, contributing factors, and at least 3 concrete action items with owners and dates. Action items are tracked until closed.
+
+============================================================
+SECTION 9: ARCHITECTURE DECISIONS
+============================================================
+
+Architecture Decision Records:
+Any decision with a lasting technical impact — a new framework, a data store, a service boundary, or a protocol change — must be captured as an Architecture Decision Record (ADR) in the architecture repository. ADRs are numbered sequentially and are immutable once accepted.
+
+ADR Format:
+Each ADR contains Context, Decision, and Consequences sections. The Consequences section must state what becomes harder as a result of the decision, not only what becomes easier. An ADR with no downsides listed has not been thought through.
+
+Technology Review:
+Introducing a new technology requires a proposal reviewed by the engineering architecture group. The proposal must cover the alternative options considered, the operational cost, and the exit strategy if the technology is abandoned.
+
+============================================================
+SECTION 10: DEPENDENCY AND VENDOR MANAGEMENT
+============================================================
+
+Third-Party Services:
+Any external service that handles NovaTech code or customer data must pass a vendor security review before production use. Reviews cover data handling, certifications, breach notification terms, and sub-processors. Approval is time-bound and reviewed annually.
+
+Internal Services:
+Before building a capability that an internal team already provides, check the service catalogue. Duplicating an internal service requires an exception approved by the platform team. Every internal service must have a named owning team and a published runbook.
+
+Open-Source Contribution:
+Contributions to open source from company work must use the employee's personal account and be approved by the manager. Code that is donated publicly cannot be relicensed back to NovaTech, so core logic must remain internal unless explicitly approved.
+
+============================================================
+SECTION 11: PERFORMANCE AND SCALABILITY
+============================================================
+
+Load Testing:
+Any service handling customer-facing traffic must have a load test covering at least 2x the expected peak before a major release. Load test results are attached to the release ticket. Load tests run against staging with production-like data volumes.
+
+Query and Endpoint Profiling:
+Slow endpoints are profiled with APM traces before optimisation. Optimisation work must be driven by a measurement, not by intuition. Adding a cache without measuring the hit ratio is not accepted as an optimisation.
+
+Caching Strategy:
+Cache invalidation strategies must be documented for every cache layer. A cache without an invalidation plan is treated as a correctness bug. Cache keys must include the tenant identifier to prevent cross-tenant data leakage.
+
+Capacity Planning:
+Capacity requirements for the next 2 quarters are reviewed quarterly by each team. Teams must flag projected saturation at least 6 weeks before it occurs. Under-provisioning discovered during a customer incident is treated as a planning failure.

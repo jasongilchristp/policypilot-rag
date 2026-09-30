@@ -96,3 +96,127 @@ Slack is the primary communication tool for daily work. Email is used for formal
 
 Confidentiality:
 All employees must maintain strict confidentiality regarding company information, client data, and proprietary processes. Sharing confidential information externally without written authorization is grounds for immediate termination.
+
+============================================================
+SECTION 7: PAYROLL AND COMPENSATION
+============================================================
+
+Pay Cycle:
+Salary is processed on the last working day of every month. Payslips are published in the HR portal on the 1st working day of the following month. Salary transfers happen in the same week; a delay of more than 3 working days must be raised with Payroll.
+
+Salary Structure:
+Total CTC is split into fixed pay, variable pay, and statutory benefits. Fixed pay covers base salary, housing allowance, and transport allowance. Variable pay is linked to individual and company performance and is not guaranteed. The full breakup is provided in the offer letter and is confidential to the employee.
+
+Statutory Deductions:
+Provident Fund is deducted at 12% of basic salary with an equal employer contribution, capped as per EPFO rules. Gratuity is accrued at 4.81% of basic salary per year of service. Professional tax and income tax (TDS) are deducted as applicable under Indian tax law.
+
+Salary Revision:
+Compensation is reviewed annually in April, following the March performance review. Off-cycle revisions are granted only in the case of a promotion, a significant change in role scope, or to correct a market gap identified during the annual benchmarking exercise.
+
+Bonus:
+Annual performance bonus, where applicable, is paid along with the December payroll. Festival bonus of one month basic is paid in October to all employees with at least 3 months of continuous service as of the cut-off date.
+
+============================================================
+SECTION 8: NOTICE PERIOD AND SEPARATION
+============================================================
+
+Notice Period by Tenure:
+Employees with less than 1 year of service must serve 30 days notice. Employees with 1 to 3 years must serve 60 days notice. Employees with more than 3 years must serve 90 days notice. Employees serving their probation period serve only 15 days notice.
+
+Notice During Probation:
+An employee who wishes to leave during the probation period must give 15 days written notice and may be asked to repay the joining bonus pro-rata. The company may waive the notice requirement for employees in probation if the separation is initiated by the company.
+
+Resignation Process:
+Resignation must be submitted through the HR portal at least 15 days before the intended last working day. The resignation letter must be countersigned by the reporting manager and the department head before the exit date is confirmed.
+
+Garden Leave:
+Employees in senior roles or those with access to Restricted data may be placed on garden leave during the notice period. Garden leave status means the employee is paid full salary but is not permitted to work, attend office, or contact clients.
+
+Full and Final Settlement:
+Full and final settlement is initiated after the last working day and completed within 45 days. It includes outstanding salary, unused leave encashment as per policy, provident fund settlement, and deduction of outstanding loans and asset recovery.
+
+Exit Interview:
+Every separating employee must attend an exit interview. Exit interviews are conducted by HR independently of the reporting manager to encourage candid feedback. The response rate is tracked as a quality metric in the employee engagement survey.
+
+============================================================
+SECTION 9: EMPLOYEE EQUIPMENT AND WORKSTATION
+============================================================
+
+Laptop Provisioning:
+Employees receive a company laptop at the time of joining. Engineering roles are issued a MacBook Pro; all other roles are issued a MacBook Air. The laptop remains company property and must be returned on separation, subject to normal depreciation.
+
+Laptop Replacement Cycle:
+Laptops are replaced every 4 years for engineering roles and every 5 years for other roles. Employees may request an early replacement only on hardware failure; a device under 3 years old that fails must first be assessed by IT.
+
+Peripherals and Accessories:
+Each employee is entitled to a wireless mouse, a laptop stand, a USB-C hub, and one 27-inch external monitor. Headsets are provided to employees whose role involves regular customer calls. Additional monitors require manager approval.
+
+ID Badge:
+Every employee must wear their company ID badge inside the office premises. The badge is issued by facilities on the first working day and must be surrendered to HR on the last working day. A replacement badge costs Rs 200.
+
+Buyback and Personal Assets:
+Employees may buy company laptops at 15% of the current MRP after 12 months of service, subject to removing the device management profile. Buying back a damaged device is not permitted.
+
+============================================================
+SECTION 10: LEARNING AND DEVELOPMENT
+============================================================
+
+Training Budget:
+Each employee receives an annual learning and development budget of Rs 20,000. The budget is non-cumulative and expires at the end of the financial year. Manager approval is required before enrolling in any paid course or certification.
+
+Sponsored Certifications:
+Cloud platform certifications (AWS, Azure, GCP) and popular stack certifications (Kubernetes, Terraform, Databricks) are fully reimbursed on passing. The employee must share study material with the team as a condition of reimbursement.
+
+Internal Learning:
+The company runs an internal learning platform with approximately 120 self-paced courses. Employees are expected to complete at least 8 hours of internal learning per quarter. Completion is reviewed during the annual performance discussion.
+
+Sponsored Events:
+Conference attendance is permitted up to 2 events per year, subject to a total budget of Rs 60,000. Employees must submit a knowledge-sharing summary within 2 weeks of returning, which is circulated to the whole engineering organisation.
+
+============================================================
+SECTION 11: RELOCATION AND TRANSFER
+============================================================
+
+Transfer Policy:
+Employees with at least 18 months of service in a location may apply for an inter-city transfer. Transfers are subject to business requirements and a receiving-team vacancy. Transfers do not carry a relocation allowance below 2 years of total service.
+
+Relocation Support:
+For employees with 2 or more years of service, NovaTech reimburses up to Rs 75,000 towards shifting, temporary accommodation for up to 30 days, and travel for the employee and immediate family. Claims must be submitted within 30 days of relocation with receipts.
+
+Hybrid Locations:
+Employees in delivery and support functions may be assigned to any of the delivery hubs — Mumbai, Hyderabad, Bengaluru, or Pune — at the same grade and compensation. Relocation to a hub must be requested at least 45 days in advance.
+
+============================================================
+SECTION 12: ADDITIONAL LEAVE TYPES
+============================================================
+
+Bereavement Leave:
+Employees are entitled to 5 days of bereavement leave for immediate family and 2 days for extended family. No documentation is required but the leave must be communicated to the manager as soon as practical.
+
+Marriage Leave:
+Employees are entitled to 7 days of paid marriage leave, to be taken within 90 days of the wedding. This leave is available once every 4 years of service.
+
+Exam Leave:
+Employees preparing for a full-time degree or professional certification examination are entitled to 3 days of study leave plus 1 day of exam leave per attempt, on production of the admission or hall ticket.
+
+Sabbatical Leave:
+After 5 years of continuous service, employees may request an unpaid sabbatical of up to 3 months. Approval depends on business requirements and team coverage. Sabbatical years do not count towards service length for increment purposes.
+
+Volunteer Leave:
+Employees may take up to 2 days of paid leave per year for approved volunteering activities. Organisers must submit a registration confirmation to be eligible.
+
+============================================================
+SECTION 13: HEALTH AND WELLBEING
+============================================================
+
+Group Health Insurance:
+All employees and their dependents are covered under group health insurance with a family floater limit of up to Rs 5 lakhs. Coverage includes hospitalisation, pre-existing disease cover after 24 months, and an annual health check-up. Insurance is effective from the date of confirmation of employment.
+
+Dependents:
+Eligible dependents are spouse, children up to 26 years of age, parents, and legally adopted children. Adding a dependent must be done within 30 days of the qualifying event. Late additions are accepted only during the annual enrolment window in November.
+
+Mental Health Support:
+The company provides a confidential Employee Assistance Program with 8 free counselling sessions per year, available to employees and dependents. Sessions are anonymous and no information is shared with managers. Appointments can be booked directly without HR approval.
+
+Workplace Safety:
+First aid kits and emergency contacts are available at every floor. Fire and evacuation drills are conducted twice a year. Report any workplace injury immediately to facilities, regardless of severity.
