@@ -86,6 +86,7 @@ def run_eval(eval_file):
     print(f"Loaded {len(eval_items)} questions from {eval_path}")
     
     results = []
+    failures = []
     for item in eval_items:
         out = app.invoke({"question": item["question"]})
         pred_intent = out.get("intent", "")
@@ -97,7 +98,21 @@ def run_eval(eval_file):
         keyword = check_keyword(item["gold_keywords"], answer)
         abstain = check_abstention(answer, item["should_answer"])
         results.append((routing, source, keyword, abstain))
-        print(f"{item['gold_intent']:12} -> {pred_intent:12} | src {pred_source:20} | routing {routing} source {source}")
+
+        issues = []
+        if not routing:
+            issues.append(f"routing expected {item['gold_intent']} got {pred_intent}")
+        if not source:
+            issues.append(f"source expected {item['gold_file']} got {pred_source}")
+        if keyword == 0:
+            issues.append(f"keyword missing {item['gold_keywords']}")
+        if not abstain:
+            issues.append(f"abstention wrong (should_answer={item['should_answer']})")
+        if issues:
+            failures.append((item["id"], item["question"], issues, answer))
+
+        suffix = "  <-- " + "; ".join(issues) if issues else ""
+        print(f"{item['gold_intent']:12} -> {pred_intent:12} | src {pred_source:20} | routing {routing} source {source}{suffix}")
 
     routing_acc = sum(r[0] for r in results) / len(results)
     source_acc = sum(r[1] for r in results) / len(results)
@@ -110,6 +125,14 @@ def run_eval(eval_file):
     print(f"Source Accuracy (right collection): {source_acc:.2%}")
     print(f"Keyword Recall: {kw_acc:.2%}")
     print(f"Abstention: {abst_acc:.2%}")
+
+    if failures:
+        print(f"\n=== FAILURES ({len(failures)}) ===")
+        for fid, question, issues, answer in failures:
+            print(f"[{fid}] {question}")
+            for issue in issues:
+                print(f"    - {issue}")
+            print(f"    answer: {answer[:220]}")
 
 def main():
     parser = argparse.ArgumentParser(description="PolicyPilot RAG CLI")

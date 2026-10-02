@@ -1,19 +1,20 @@
 from fileinput import filename
-from importlib import metadata
 from pathlib import Path
 from langchain_chroma import Chroma
-from langchain_core import documents
 from langchain_core.documents import Document
 from .config import settings
 from .models import get_embeddings
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 def chunk_by_paragraph(file_path: Path) -> list[Document]:
     text = file_path.read_text(encoding="utf-8")
-    return [
-        Document(page_content=p.strip(), metadata={"source": str(file_path)})
-        for p in text.split("\n\n")
-        if len(p.strip()) >= 50 and not p.strip().startswith("===")
-    ]
+    recursive_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=1000,       # Maximum characters per chunk
+            chunk_overlap=200,     # Overlap between chunks (20%)
+            add_start_index=True   # Retains character metadata position
+        )
+    raw_chunks = recursive_splitter.split_text(text)
+    return [Document(page_content=chunk) for chunk in raw_chunks]
 
 def build_collection(file_path: Path, collection_name: str) -> int:
     documents = chunk_by_paragraph(file_path)

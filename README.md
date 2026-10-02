@@ -2,34 +2,36 @@
 
 > A LangGraph-powered, intent-routed RAG assistant for internal company knowledge.
 
-**PolicyPilot RAG** classifies a support question, sends it to the appropriate knowledge domain, retrieves relevant policy passages from an isolated Chroma collection, and produces a context-grounded answer with a local Ollama model.
+**PolicyPilot RAG** classifies a support question, sends it to the appropriate knowledge domain, retrieves relevant policy passages from an isolated Chroma collection, and produces a context-grounded answer using hosted models.
 
 [![Python 3.13+](https://img.shields.io/badge/python-3.13%2B-blue)]()
-[![Eval: 96% Routing](https://img.shields.io/badge/routing-96%25-brightgreen)]()
-[![Eval: 95% Recall](https://img.shields.io/badge/keyword%20recall-95%25-brightgreen)]()
-[![Tests: 9 passed](https://img.shields.io/badge/tests-9%20passed-brightgreen)]()
+[![Stack: Groq + Gemini](https://img.shields.io/badge/models-Groq%20%2B%20Gemini-5c3fd6)]()
+[![Eval: pending](https://img.shields.io/badge/eval-not%20yet%20measured-lightgrey)]()
 
 ## Features
 
-- **Intent-aware routing:** Classifies questions as `hr`, `engineering`, `onboarding`, `product`, `security`, or `general`.
-- **Domain-isolated retrieval:** Uses one Chroma collection per internal knowledge domain to reduce irrelevant retrieval.
-- **Grounded generation:** Domain answers are generated only from retrieved passages.
-- **Local-first stack:** Runs with Ollama for both generation and embeddings.
-- **Modular codebase:** Separates config, models, ingestion, retrieval, prompts, LangGraph nodes, graph assembly, CLI, and tests.
-- **CLI workflows:** Ingest the source documents, ask a one-off question, or use an interactive loop.
-- **Measured evaluation:** 4-metric harness (routing, source accuracy, keyword recall, abstention) with 25-question eval set.
-- **Abstention safety:** 96% abstention on out-of-scope (poems, stocks, capitals) instead of hallucinating.
+- **Embedding-based routing:** classifies questions as `hr`, `engineering`, `onboarding`, `product`, `security`, or `general` using vector similarity against each domain, with an LLM fallback only for ambiguous ties.
+- **Domain-isolated retrieval:** one Chroma collection per internal knowledge domain to reduce irrelevant retrieval.
+- **Grounded generation:** answers are generated only from retrieved passages, with a single canonical abstention string when the answer is not supported.
+- **Code-level correctness controls:** typographic-Unicode normalisation on model output and rate-limit retry, so exact values such as `Rs 299` survive generation and long runs survive provider throttling.
+- **Minimal prompts:** prompts state the task and the output contract only. Routing, abstention, and fidelity are enforced in code, not by prompt rules.
+- **Modular codebase:** config, models, prompts, ingestion, retrieval, nodes, graph assembly, and CLI are separated.
+- **Measured evaluation:** 4-metric harness (routing, source accuracy, keyword recall, abstention) over a 25-question eval set.
 
-## Eval Results (Locked - 25 questions)
+## Eval Results
 
-- Routing 96% = WiFi -> security, query time -> engineering (not product)
-- Source 96% = correct Chroma collection out of 5
-- Keyword Recall 95% = exact numbers: `24 days`, `500ms`, `NovaTech-Secure`, `Starter $29`
-- Abstention 96% = says IDK for OOS
+Scores are intentionally left blank until the pipeline is re-measured against the current cloud configuration. Earlier figures in this file were produced by a prompt that embedded eval questions as few-shot examples; they were not a valid generalisation estimate and have been removed rather than restated.
+
+| Metric | Result |
+|---|---|
+| Routing accuracy | _pending_ |
+| Source accuracy (correct collection) | _pending_ |
+| Keyword recall (exact values) | _pending_ |
+| Abstention (out-of-scope) | _pending_ |
+
+Run `company-rag --eval` to populate. The harness prints aggregate scores plus a per-item failure list.
 
 ## Graph workflow
-
-The attached graph represents the runtime routing workflow.
 
 ```mermaid
 flowchart TD
@@ -52,25 +54,29 @@ flowchart TD
 ### Request lifecycle
 
 1. The user submits a question.
-2. `classify` assigns exactly one supported intent.
-3. A specialized retrieval node queries the matching Chroma collection for HR, engineering, onboarding, product, or security.
-4. The retrieved chunks are assembled into a source-labelled context.
-5. `generate` creates an answer using only that context.
-6. General questions skip retrieval and go directly to `answer_general`.
+2. `classify` embeds the question and routes it to the nearest domain by cosine distance. Two signals short-circuit without an LLM call:
+   - if no domain is within `ROUTER_MAX_DISTANCE`, the question is out of scope and routes to `general`;
+   - if the top two domains are within `ROUTER_MARGIN`, the LLM classifier breaks the tie.
+3. A retrieval node queries the matching Chroma collection.
+4. Retrieved chunks are assembled into a source-labelled context.
+5. `generate` answers from that context only, abstaining when the required fact is absent.
+6. Out-of-scope questions skip retrieval entirely.
 
 ## Architecture
 
 ```mermaid
 flowchart LR
-    DOCS[Company .txt documents] --> INGEST[Paragraph chunking]
-    INGEST --> EMBED[Ollama embeddings]
+    DOCS[Company .txt documents] --> INGEST[Recursive chunking]
+    INGEST --> EMBED[Gemini embeddings]
     EMBED --> CHROMA[(Chroma collections)]
-    USER[User question] --> ROUTER[LangGraph classifier]
-    ROUTER --> RETRIEVE[Intent-specific retrieval]
+    USER[User question] --> ROUTER[Embedding router]
+    ROUTER -. ambiguous .-> FALLBACK[LLM classifier]
+    ROUTER --> RETRIEVE[Domain retrieval]
     CHROMA --> RETRIEVE
     RETRIEVE --> CONTEXT[Source-labelled context]
-    CONTEXT --> LLM[Ollama chat model]
-    LLM --> ANSWER[Grounded answer]
+    CONTEXT --> LLM[Groq chat model]
+    LLM --> NORM[Unicode normalisation]
+    NORM --> ANSWER[Grounded answer]
 ```
 
 ## Folder structure
@@ -79,56 +85,62 @@ flowchart LR
 policypilot-rag/
 ├── README.md
 ├── pyproject.toml
-├──.env.example
-├──.gitignore
+├── .env.example
+├── .gitignore
 ├── data/
-│ ├── company_hr_policy.txt
-│ ├── engineering_standards.txt
-│ ├── onboarding_guide.txt
-│ ├── product_knowledge_base.txt
-│ └── security_policy.txt
+│   ├── company_hr_policy.txt
+│   ├── engineering_standards.txt
+│   ├── onboarding_guide.txt
+│   ├── product_knowledge_base.txt
+│   └── security_policy.txt
 ├── eval/
-│ └── eval_set.jsonl 
-├── chroma_store/
+│   ├── eval_set.jsonl
+│   └── eval_out.txt
+├── notebooks/
+│   └── experiments.ipynb
+├── chroma_store/            # generated, gitignored
 ├── src/
-│ └── company_support_rag/
-│ ├── __init__.py
-│ ├── config.py
-│ ├── models.py
-│ ├── schemas.py
-│ ├── prompts.py 
-│ ├── ingestion.py
-│ ├── retrieval.py
-│ ├── nodes.py
-│ ├── graph.py
-│ ├── llm.py
-│ └── main.py
+│   └── company_support_rag/
+│       ├── __init__.py
+│       ├── config.py
+│       ├── models.py
+│       ├── schemas.py
+│       ├── prompts.py
+│       ├── ingestion.py
+│       ├── retrieval.py
+│       ├── nodes.py
+│       ├── graph.py
+│       └── main.py
 └── tests/
     ├── __init__.py
     ├── test_routing.py
     ├── test_smoke.py
-    └── test_eval_file.py 
+    └── test_eval_file.py
 ```
 
 ## Stack
 
+All inference is hosted. There is no local model runtime.
+
 | Layer | Technology | Responsibility |
 |---|---|---|
-| Workflow | LangGraph | Stateful routing and orchestration |
+| Workflow | LangGraph | Routing and orchestration |
 | LLM framework | LangChain | Model and document abstractions |
-| Generation | Ollama | Local chat-model inference |
-| Embeddings | `granite-embedding:30m` via Ollama | Local semantic embeddings |
-| Vector database | Chroma | Persistent, domain-specific vector collections |
+| Generation | Groq `openai/gpt-oss-120b` | Context-grounded answer generation |
+| Classification | Groq `openai/gpt-oss-20b` | Fallback tie-break only |
+| Embeddings | Google `gemini-embedding-001` | Chunk and query embeddings |
+| Vector database | Chroma | Persistent, domain-specific collections |
 | Configuration | `python-dotenv` | Environment-based runtime settings |
-| Tests | pytest | Routing behavior + eval file checks (9 passed) |
-| Eval | Custom harness | 4 metrics: routing, source, keyword recall, abstention |
+| Tests | pytest | Routing behaviour and eval-file checks |
+| Eval | Custom harness | Routing, source, keyword recall, abstention |
+
 ## Setup
 
 ### Prerequisites
 
 - Python 3.13 or later
-- Ollama installed and running locally
-- `uv` recommended, although `pip` works as well
+- A Groq API key
+- A Google AI Studio API key (for embeddings)
 
 ### Install
 
@@ -139,42 +151,44 @@ cd policypilot-rag
 uv venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
 uv pip install -e .
-
-cp .env.example .env
-ollama pull granite4.2:3b
-ollama pull granite-embedding:30m 
 ```
 
 ### Configure
 
+```bash
+cp .env.example .env
+```
+
 ```env
-CHAT_MODEL=granite4.2:3b
-EMBED_MODEL=granite-embedding:30m 
+GROQ_API_KEY=your_groq_key
+GOOGLE_API_KEY=your_google_key
+
+CHAT_MODEL=openai/gpt-oss-120b
+INTENT_MODEL=openai/gpt-oss-20b
+MODEL_PROVIDER=groq
+EMBED_MODEL=gemini-embedding-001
+
 CHROMA_DIR=./chroma_store
 DATA_DIR=./data
 RETRIEVAL_K=5
 ```
 
-Put the five expected knowledge-base text files inside `data/`. You can change the model names, storage location, document location, and retrieval depth without changing Python code.
+Model names, storage location, document location, and retrieval depth are all configurable without changing Python code.
 
-## Run
+### Ingest
 
-### Build the vector collections
+Embedding dimension is fixed at build time, so re-run ingestion whenever `EMBED_MODEL` changes. Ingesting into a store built by a different embedder raises a dimension mismatch.
 
 ```bash
 company-rag --ingest
 ```
 
-### Ask one question
+## Run
 
 ```bash
 company-rag --question "What are the engineering code review requirements?"
-```
-
-### Interactive session
-
-```bash
 company-rag --interactive
+company-rag --eval
 ```
 
 ## Example
@@ -191,30 +205,22 @@ Answer:
 
 ## Implementation notes
 
-- Paragraph chunking preserves policy sections better than blindly splitting every fixed number of characters for these short, policy-oriented documents.
-- Each domain receives a separate vector collection, matching the classifier’s routing contract.
-- The classifier has a safe fallback: invalid labels become `general`.
-- Retrieved passages include source metadata before generation, making later citation rendering straightforward.
-- Domain questions use a strict context-only answer prompt; when retrieval does not contain the answer, the assistant should abstain rather than invent policy.
+- **Routing is embedding-first.** Cosine distance against each domain collection generalises to phrasings no prompt rule anticipates. Out-of-scope questions sit far from every domain (distance > 0.55) while genuine policy questions sit well inside it, so the distance threshold separates them without asking a model to.
+- **Prompts stay short on purpose.** Routing thresholds, abstention, and value fidelity are enforced in code. Adding few-shot examples from the eval set would raise scores while making the system worse at questions it has not seen.
+- **Output is normalised before use.** Small models emit narrow no-break spaces and smart punctuation inside copied values, which silently breaks exact-match evaluation and downstream consumers.
+- **Calls retry on provider throttling.** Hosted free tiers enforce low per-minute and per-day token caps; calls back off instead of failing the run.
+- **Each domain has an isolated collection**, matching the classifier's routing contract.
+- **Unparseable classifier labels degrade to `general`**, which abstains rather than inventing policy.
 
 ## Testing
-### Unit tests - 9 passed
 
 ```bash
-# Git Bash (MINGW64) - use this, not pytest alone
 PYTHONPATH=src python -m pytest tests/ -v
 
-# or with uv
+# or
 uv run pytest tests/ -v
 ```
-## Eval harness
 
-```bash
-company-rag --eval
-```
-## Resume bullet
-
-> Built **PolicyPilot RAG**, a local LangGraph-based company support assistant that classifies questions across five knowledge domains, routes queries to isolated Chroma vector collections, and generates grounded answers through Ollama-based retrieval-augmented generation. Locked 96% routing, 95% keyword recall, 96% abstention with 9 pytest + 25-question eval harness.
 ## License
 
 MIT license.
